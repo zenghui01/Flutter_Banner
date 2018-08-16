@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 typedef void OnBannerClickListener(int index, dynamic itemData);
 typedef Widget BuildShowView(int index, dynamic itemData);
 
-class BannerView<T> extends StatefulWidget {
+class BannerView extends StatefulWidget {
   final OnBannerClickListener onBannerClickListener;
 
   //延迟多少秒进入下一页
@@ -16,7 +16,7 @@ class BannerView<T> extends StatefulWidget {
   final List data;
   final BuildShowView buildShowView;
 
-  final ValueChanged<T> onPageChanged;
+  final ValueChanged<int> onPageChanged;
 
   BannerView(
       {Key key,
@@ -37,14 +37,17 @@ class BannerViewState extends State<BannerView> {
 //  double.infinity
   var pageController;
   Timer timer;
+  static bool isFirst = true;
 
   BannerViewState() {
 //    print(widget.delayTime);
+    print('111122');
   }
 
   @override
   void initState() {
     super.initState();
+    print(widget.data.length);
     pageController = new PageController(initialPage: widget.data.length);
     resetTimer();
   }
@@ -95,13 +98,7 @@ class BannerViewState extends State<BannerView> {
                 },
                 child: new PageView.builder(
                   controller: pageController,
-                  onPageChanged: (int index) {
-                    if (widget.data.length > index && index >= 0) {
-                      widget.onPageChanged(widget.data[index]);
-                    } else {
-                      widget.onPageChanged(null);
-                    }
-                  },
+                  onPageChanged: widget.onPageChanged,
                   physics: const PageScrollPhysics(
                       parent: const ClampingScrollPhysics()),
                   itemBuilder: (BuildContext context, int index) {

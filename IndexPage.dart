@@ -29,13 +29,10 @@ class IndexPageState extends State<IndexPage>
         var json = await response.transform(UTF8.decoder).join();
         result = new IndexPageBannerBean.fromJson(JSON.decode(json)).data;
       } else {
-        print('解析有问题');
         result = null;
       }
       request.close();
     } catch (exception) {
-      print('解析有问题22');
-      print(exception);
       result = null;
     }
 
@@ -57,14 +54,13 @@ class IndexPageState extends State<IndexPage>
 
   @override
   Widget build(BuildContext context) {
-    print(mResult);
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           Stack(
             alignment: Alignment.bottomCenter,
             children: <Widget>[
-              BannerView<BannerChildBean>(
+              BannerView(
                 data: mResult == null ? [] : mResult,
                 onPageChanged: onPageChanged,
                 buildShowView: (index, itemData) {
@@ -89,10 +85,12 @@ class IndexPageState extends State<IndexPage>
     );
   }
 
-  void onPageChanged(BannerChildBean data) {
+  void onPageChanged(int index) {
     setState(() {
-      print(data);
-      this.bannerTitle = data.title;
+      print(index);
+      if (mResult != null && mResult.length > index) {
+        this.bannerTitle = mResult[index].title;
+      }
     });
   }
 }
