@@ -43,6 +43,7 @@ class IndexPageState extends State<IndexPage>
 
     setState(() {
       mResult = result;
+      bannerTitle = result[0].title;
     });
   }
 
@@ -87,7 +88,6 @@ class IndexPageState extends State<IndexPage>
 
   void onPageChanged(int index) {
     setState(() {
-      print(index);
       if (mResult != null && mResult.length > index) {
         this.bannerTitle = mResult[index].title;
       }
