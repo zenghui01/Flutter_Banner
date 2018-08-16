@@ -14,7 +14,7 @@ https://github.com/zhangruiyu/BannerView
 3.未处理 onpagechange方法(本人因为项目需要这个)</br>
 4.其他有兴趣的朋友自己去看吧
 
-改版后还存在的问题:
+改版后还存在的问题:（已解决：原因是我在网络请求的setstate没有给第一个标题赋值）
 ---
 第一次数据加载完成时，不会调用onpagechange方法</br>
 
