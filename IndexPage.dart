@@ -64,7 +64,7 @@ class IndexPageState extends State<IndexPage>
           Stack(
             alignment: Alignment.bottomCenter,
             children: <Widget>[
-              BannerView(
+              BannerView<BannerChildBean>(
                 data: mResult == null ? [] : mResult,
                 onPageChanged: onPageChanged,
                 buildShowView: (index, itemData) {
@@ -89,14 +89,10 @@ class IndexPageState extends State<IndexPage>
     );
   }
 
-  void onPageChanged(int index) {
+  void onPageChanged(BannerChildBean data) {
     setState(() {
-      print(mResult.length);
-      print(index);
-      if (mResult != null && mResult.length > index) {
-
-        this.bannerTitle = mResult[index].title;
-      }
+      print(data);
+      this.bannerTitle = data.title;
     });
   }
 }
